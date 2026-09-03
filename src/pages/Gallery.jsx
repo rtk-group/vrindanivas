@@ -1,14 +1,16 @@
 import { motion } from 'framer-motion';
+import { images } from '../assets/images.js'
 
 const Gallery = () => {
   // Placeholder images
-  const images = [
-    "https://images.unsplash.com/photo-1578683010236-d716f9a3f461?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80", // Room interior
-    "https://images.unsplash.com/photo-1540518614846-7eded433c457?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80", // Bedroom
-    "https://images.unsplash.com/photo-1582719508461-905c673771fd?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80", // Details
-    "https://images.unsplash.com/photo-1505691938895-1758d7feb511?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80", // Architecture/Home
-    "https://images.unsplash.com/photo-1596701062351-8c2c14d1fdd0?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80", // Vrindavan theme
-    "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"  // Balcony/View
+  const image = [
+    images.img1,
+    images.img2,
+    images.img4,
+    images.img5,
+    images.img6,
+    images.img7,
+    images.img8,
   ];
 
   return (
@@ -28,7 +30,7 @@ const Gallery = () => {
         </motion.div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {images.map((src, index) => (
+          {image.map((src, index) => (
             <motion.div 
               key={index}
               initial={{ opacity: 0, scale: 0.9 }}

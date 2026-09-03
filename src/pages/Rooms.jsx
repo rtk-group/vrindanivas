@@ -1,58 +1,45 @@
 import { motion } from 'framer-motion';
 import { FaWifi, FaSnowflake, FaCoffee, FaBath } from 'react-icons/fa';
+import { images } from '../assets/images';
 
 const Rooms = () => {
   const rooms = [
     {
       id: 1,
-      title: "Ground Floor Premium - Room 1",
-      desc: "Spacious premium room on the ground floor with easy access, elegant decor, and a peaceful environment. Ideal for elderly guests or those who prefer avoiding stairs.",
-      price: "₹--- / night",
-      img: "https://images.unsplash.com/photo-1590490360182-c33d57733427?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
+      title: "First Floor Deluxe - Room 1",
+      desc: "Elevated comfort on the first floor with large windows bringing in natural light and fresh air. A perfect retreat after a long day of darshan.",
+      price: "₹999 / day",
+      img: `${images.img1}`,
     },
     {
       id: 2,
-      title: "Ground Floor Premium - Room 2",
-      desc: "Beautifully furnished ground floor room featuring premium bedding, maximum comfort, and total privacy for your relaxing stay in Vrindavan.",
-      price: "₹--- / night",
-      img: "https://images.unsplash.com/photo-1540518614846-7eded433c457?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
-    },
-    {
-      id: 3,
-      title: "First Floor Deluxe - Room 1",
-      desc: "Elevated comfort on the first floor with large windows bringing in natural light and fresh air. A perfect retreat after a long day of darshan.",
-      price: "₹--- / night",
-      img: "https://images.unsplash.com/photo-1582719508461-905c673771fd?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
-    },
-    {
-      id: 4,
       title: "First Floor Deluxe - Room 2",
       desc: "A stunning deluxe room on the first floor perfect for families or couples seeking a serene retreat with a premium homestay feel.",
-      price: "₹--- / night",
-      img: "https://images.unsplash.com/photo-1578683010236-d716f9a3f461?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
+      price: "₹999 / day",
+      img: `${images.img5}`,
     }
   ];
 
   const amenities = [
-    { icon: <FaSnowflake size={20}/>, name: "Air Conditioning" },
-    { icon: <FaWifi size={20}/>, name: "Free Wi-Fi" },
-    { icon: <FaBath size={20}/>, name: "Separate Bathroom" },
-    { icon: <FaCoffee size={20}/>, name: "Coffee/Tea Maker" },
+    { icon: <FaSnowflake size={20} />, name: "Air Conditioning" },
+    { icon: <FaWifi size={20} />, name: "Free Wi-Fi" },
+    { icon: <FaBath size={20} />, name: "Separate Bathroom" },
+    { icon: <FaCoffee size={20} />, name: "Coffee/Tea Maker" },
   ];
 
   return (
     <div className="pt-32 pb-20 bg-white min-h-screen">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        
+
         {/* Header Section */}
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
           className="text-center mb-20"
         >
           <p className="text-goyard-gold uppercase tracking-[0.25em] font-bold text-xs mb-4">Our Accommodation</p>
-          <h1 className="text-4xl md:text-5xl font-serif font-bold text-goyard-dark mb-6">4 Premium Rooms</h1>
+          <h1 className="text-4xl md:text-5xl font-serif font-bold text-goyard-dark mb-6">Premium Rooms</h1>
           <div className="w-16 h-[1px] bg-goyard-gold mx-auto"></div>
           <p className="mt-6 text-gray-500 max-w-2xl mx-auto text-lg font-serif">
             Experience complete privacy in our exclusive 4-room property. Featuring 2 rooms on the ground floor and 2 on the first floor, fully equipped for your comfort.
@@ -62,7 +49,7 @@ const Rooms = () => {
         {/* Rooms List */}
         <div className="space-y-16">
           {rooms.map((room, index) => (
-            <motion.div 
+            <motion.div
               key={room.id}
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -72,18 +59,18 @@ const Rooms = () => {
             >
               {/* Image Side */}
               <div className="w-full lg:w-1/2 relative h-[400px] lg:h-auto overflow-hidden group">
-                <img 
-                  src={room.img} 
-                  alt={room.title} 
+                <img
+                  src={room.img}
+                  alt={room.title}
                   className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                 />
               </div>
-              
+
               {/* Content Side */}
               <div className="w-full lg:w-1/2 p-8 lg:p-16 flex flex-col justify-center">
                 <h2 className="text-3xl font-serif text-goyard-dark font-bold mb-4">{room.title}</h2>
                 <p className="text-goyard-gold text-sm font-bold uppercase tracking-widest mb-6">{room.price}</p>
-                
+
                 <p className="text-gray-600 mb-8 leading-relaxed font-serif text-lg">
                   {room.desc}
                 </p>
@@ -98,7 +85,7 @@ const Rooms = () => {
                   ))}
                 </div>
 
-                <a 
+                <a
                   href={`https://wa.me/919690103443?text=Radhe%20Radhe!%20I%20want%20to%20book%20${encodeURIComponent(room.title)}`}
                   target="_blank"
                   rel="noreferrer"

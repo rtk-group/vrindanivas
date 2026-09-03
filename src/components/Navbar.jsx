@@ -49,13 +49,16 @@ const Navbar = () => {
     { name: 'Contact', path: '/contact' },
   ];
 
+  const isHomePage = location.pathname === '/';
+  const useSolidBackground = !isHomePage || isScrolled;
+
   return (
-    <nav className={`fixed w-full z-50 transition-all duration-500 transform ${showNavbar ? 'translate-y-0' : '-translate-y-full'} ${isScrolled ? 'bg-white text-goyard-dark shadow-xl py-4 border-none' : 'bg-transparent text-white py-6 border-b border-white/20'}`}>
+    <nav className={`fixed w-full z-50 transition-all duration-500 transform ${showNavbar ? 'translate-y-0' : '-translate-y-full'} ${useSolidBackground ? 'bg-white text-goyard-dark shadow-xl py-4 border-none' : 'bg-transparent text-white py-6 border-b border-white/20'}`}>
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center">
           
           <div className="flex-1 flex justify-start">
-            <Link to="/" className={`text-3xl font-bold font-serif tracking-widest hover:text-goyard-gold transition ${isScrolled ? 'text-goyard-dark' : 'text-white'}`}>
+            <Link to="/" className={`text-3xl font-bold font-serif tracking-widest hover:text-goyard-gold transition ${useSolidBackground ? 'text-goyard-dark' : 'text-white'}`}>
               VRINDA
             </Link>
           </div>
@@ -65,7 +68,7 @@ const Navbar = () => {
               <Link 
                 key={link.name} 
                 to={link.path}
-                className={`hover:text-goyard-gold transition-colors duration-300 text-[11px] uppercase tracking-[0.15em] font-bold ${isScrolled ? 'text-goyard-dark' : 'text-white'}`}
+                className={`hover:text-goyard-gold transition-colors duration-300 text-[11px] uppercase tracking-[0.15em] font-bold ${useSolidBackground ? 'text-goyard-dark' : 'text-white'}`}
               >
                 {link.name}
               </Link>
@@ -73,10 +76,10 @@ const Navbar = () => {
           </div>
 
           <div className="flex-1 flex justify-end items-center">
-            <Link to="/rooms" className={`hidden md:inline-block px-6 py-3 text-[10px] uppercase tracking-[0.2em] font-bold transition-colors ${isScrolled ? 'bg-goyard-dark text-white hover:bg-goyard-gold' : 'bg-goyard-gold text-white hover:bg-white hover:text-goyard-dark'}`}>
+            <Link to="/rooms" className={`hidden md:inline-block px-6 py-3 text-[10px] uppercase tracking-[0.2em] font-bold transition-colors ${useSolidBackground ? 'bg-goyard-dark text-white hover:bg-goyard-gold' : 'bg-goyard-gold text-white hover:bg-white hover:text-goyard-dark'}`}>
               Book Now
             </Link>
-            <button onClick={() => setIsOpen(!isOpen)} className={`md:hidden focus:outline-none hover:text-goyard-gold ml-4 ${isScrolled ? 'text-goyard-dark' : 'text-white'}`}>
+            <button onClick={() => setIsOpen(!isOpen)} className={`md:hidden focus:outline-none hover:text-goyard-gold ml-4 ${useSolidBackground ? 'text-goyard-dark' : 'text-white'}`}>
               {isOpen ? <X size={32} /> : <Menu size={32} />}
             </button>
           </div>
