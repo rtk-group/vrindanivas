@@ -1,8 +1,7 @@
 import { useState, useRef } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Navigation, Pagination, EffectFade, Autoplay } from 'swiper/modules';
-import { Link } from 'react-router-dom';
-import { FaWifi, FaCar, FaCoffee, FaBed, FaHome, FaBath, FaShieldAlt, FaLeaf, FaVolumeMute, FaVolumeUp, FaArrowUp, FaDoorOpen, FaHotTub, FaSuitcaseRolling, FaGlassMartiniAlt, FaShuttleVan } from 'react-icons/fa';
+import { EffectFade, Autoplay } from 'swiper/modules';
+import { FaWifi, FaCar, FaHome, FaBath, FaShieldAlt, FaLeaf, FaVolumeMute, FaVolumeUp, FaArrowUp, FaDoorOpen, FaHotTub, FaSuitcaseRolling, FaGlassMartiniAlt, FaShuttleVan } from 'react-icons/fa';
 import { motion, useScroll, useTransform } from 'framer-motion';
 
 import 'swiper/css';
