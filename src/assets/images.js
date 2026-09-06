@@ -15,8 +15,5 @@ export const images = {
     img6,
     img7,
     img8,
-    scaleImg,
-    firstflore,
-    ground,
     home_hero
 }
