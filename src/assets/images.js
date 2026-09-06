@@ -8,6 +8,7 @@ import img8 from "./img8.jpg"
 import scaleImg from "./scaleImg.jpg"
 import firstflore from "./firstflore.jpg"
 import ground from "./ground.jpg"
+import home_hero from "./home_stayimg.png"
 
 export const images = {
     img1, 
@@ -19,5 +20,6 @@ export const images = {
     img8,
     scaleImg,
     firstflore,
-    ground
+    ground,
+    home_hero
 }

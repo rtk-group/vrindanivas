@@ -74,7 +74,7 @@ const Home = () => {
       {/* 1. HERO SECTION */}
       <section className="relative h-screen">
         <div className="h-full w-full relative">
-          <img src={images.ground} className="absolute inset-0 w-full h-full object-cover z-0" alt="Vrinda Nivas" />
+          <img src={images.home_hero} className="absolute inset-0 w-full h-full object-cover z-0" alt="Vrinda Nivas" />
           <div className="absolute inset-0 bg-black/40 z-10"></div>
           <div className="absolute inset-0 z-20 flex flex-col items-center justify-center text-center px-4 mt-16">
             <motion.p initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1, delay: 0.2 }} className="text-goyard-gold uppercase tracking-[0.25em] font-bold text-xs mb-6">Private Homestay in Vrindavan</motion.p>
@@ -150,7 +150,7 @@ const Home = () => {
             className="w-full h-full rounded-[30px] md:rounded-[40px] overflow-hidden origin-center shadow-2xl"
           >
             <img
-              src={images.scaleImg}
+              src={images.img1}
               alt="Vrinda Nivas Luxury"
               className="w-full h-full object-cover"
             />
@@ -167,7 +167,7 @@ const Home = () => {
 
         <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUpVars} className="max-w-[1200px] mx-auto px-4 grid grid-cols-1 md:grid-cols-2 gap-6">
           <div className="relative group overflow-hidden h-[400px]">
-            <img src={images.ground} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Ground Floor Room 1" />
+            <img src={images.img1} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Ground Floor Room 1" />
             <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent flex flex-col justify-end p-8">
               <span className="text-goyard-gold text-xs font-bold uppercase tracking-widest mb-2">Ground Floor</span>
               <h3 className="text-white text-3xl font-serif mb-2">Premium Room 1</h3>
@@ -175,7 +175,7 @@ const Home = () => {
             </div>
           </div>
           <div className="relative group overflow-hidden h-[400px]">
-            <img src={images.firstflore} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Ground Floor Room 2" />
+            <img src={images.img5} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Ground Floor Room 2" />
             <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent flex flex-col justify-end p-8">
               <span className="text-goyard-gold text-xs font-bold uppercase tracking-widest mb-2">Ground Floor</span>
               <h3 className="text-white text-3xl font-serif mb-2">Premium Room 2</h3>
@@ -324,9 +324,9 @@ const Home = () => {
         <div className="animate-marquee hover:pause flex w-[200%] h-[300px]">
           {/* First set of images */}
           <div className="flex w-1/2">
-            <img src={images.ground} className="w-1/5 h-full object-cover border-r border-white" alt="Gallery 1" />
-            <img src={images.img1} className="w-1/5 h-full object-cover border-r border-white" alt="Gallery 2" />
-            <img src={images.firstflore} className="w-1/5 h-full object-cover border-r border-white" alt="Gallery 3" />
+            <img src={images.home_hero} className="w-1/5 h-full object-cover border-r border-white" alt="Gallery 3" />
+            <img src={images.img7} className="w-1/5 h-full object-cover border-r border-white" alt="Gallery 1" />
+            <img src={images.img6} className="w-1/5 h-full object-cover border-r border-white" alt="Gallery 2" />
             <img src={images.img5} className="w-1/5 h-full object-cover border-r border-white" alt="Gallery 4" />
             <img src={images.img4} className="w-1/5 h-full object-cover border-r border-white" alt="Gallery 5" />
           </div>
@@ -335,8 +335,8 @@ const Home = () => {
             <img src={images.img1} className="w-1/5 h-full object-cover border-r border-white" alt="Gallery 1" />
             <img src={images.img4} className="w-1/5 h-full object-cover border-r border-white" alt="Gallery 2" />
             <img src={images.img5} className="w-1/5 h-full object-cover border-r border-white" alt="Gallery 3" />
-            <img src={images.img6} className="w-1/5 h-full object-cover border-r border-white" alt="Gallery 4" />
-            <img src={images.img7} className="w-1/5 h-full object-cover border-r border-white" alt="Gallery 5" />
+            {/* <img src={images.img6} className="w-1/5 h-full object-cover border-r border-white" alt="Gallery 4" />
+            <img src={images.img7} className="w-1/5 h-full object-cover border-r border-white" alt="Gallery 5" /> */}
           </div>
         </div>
       </section>
