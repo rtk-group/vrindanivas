@@ -1,347 +1,137 @@
-import { useState, useRef } from 'react';
-import { Swiper, SwiperSlide } from 'swiper/react';
-import { EffectFade, Autoplay } from 'swiper/modules';
-import { FaWifi, FaCar, FaHome, FaBath, FaShieldAlt, FaLeaf, FaVolumeMute, FaVolumeUp, FaArrowUp, FaDoorOpen, FaHotTub, FaSuitcaseRolling, FaGlassMartiniAlt, FaShuttleVan } from 'react-icons/fa';
-import { motion, useScroll, useTransform } from 'framer-motion';
+import React, { useEffect, useState } from 'react';
+import { images } from '../assets/images.js'
+import axios from 'axios';
 
-import 'swiper/css';
-import 'swiper/css/navigation';
-import 'swiper/css/pagination';
-import 'swiper/css/effect-fade';
-import { images } from '../assets/images';
-import { image } from 'framer-motion/client';
+export default function Home() {
+  const [totalVisits, setTotalVisits] = useState(0)
 
-const Home = () => {
-  const [checkIn, setCheckIn] = useState('');
-  const [checkOut, setCheckOut] = useState('');
-  const [guests, setGuests] = useState('1');
-
-  // Video Slider States
-  const swiperRef = useRef(null);
-  const [activeVideo, setActiveVideo] = useState(0);
-  const [isMuted, setIsMuted] = useState(true);
-
-  // Scroll Animation States
-  const scrollRef = useRef(null);
-  const { scrollYProgress } = useScroll({
-    target: scrollRef,
-    offset: ["start end", "center center"]
-  });
-  const imageScale = useTransform(scrollYProgress, [0, 1], [0.85, 1]);
-
-  const handleBooking = (e) => {
-    e.preventDefault();
-    const message = `Radhe Radhe! Booking Query:%0A*Check-in:* ${checkIn}%0A*Check-out:* ${checkOut}%0A*Guests:* ${guests}`;
-    window.open(`https://wa.me/919690103443?text=${message}`, '_blank');
-  };
-
-  const fadeUpVars = {
-    hidden: { opacity: 0, y: 40 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: "easeOut" } }
-  };
-
-  const interactiveVideoSlides = [
-    {
-      title: "Exclusive Private Property",
-      heading: "Exclusive Private Property",
-      desc: "We guarantee you'll find the best deals right here on our website. So BOOK DIRECT and receive these added benefits at no extra cost:",
-      video: "https://res.cloudinary.com/demo/video/upload/so_5/hotel.mp4"
-    },
-    {
-      title: "Peaceful Darshan & Retreat",
-      heading: "Peaceful Darshan & Retreat",
-      desc: "We guarantee you'll find the best deals right here on our website. So BOOK DIRECT and receive these added benefits at no extra cost:",
-      video: "https://res.cloudinary.com/demo/video/upload/elephants.mp4"
-    },
-    {
-      title: "Premium Room Comfort",
-      heading: "Premium Room Comfort",
-      desc: "We guarantee you'll find the best deals right here on our website. So BOOK DIRECT and receive these added benefits at no extra cost:",
-      video: "https://cdn.coverr.co/videos/coverr-pouring-coffee-5284/1080p.mp4"
-    },
-    {
-      title: "The Heart of Vrindavan",
-      heading: "The Heart of Vrindavan",
-      desc: "We guarantee you'll find the best deals right here on our website. So BOOK DIRECT and receive these added benefits at no extra cost:",
-      video: "https://res.cloudinary.com/demo/video/upload/hotel.mp4"
+  const fetchVists = async () => {
+    try {
+      const response = await axios.get('http://localhost:5000/visits');
+      if (response.data.success) {
+        setTotalVisits(response.data?.getVisits?.visits);
+      }
+    } catch (error) {
+      console.log("error is:", error)
     }
-  ];
+  }
+  const postVisits = async () => {
+    try {
+      const res = await axios.post('http://localhost:5000/');
+      if (res.data.success) {
+        console.log(res.data?.message, ": We will fix it soon");
+      }
+    } catch (error) {
+      console.log("error is:", error)
+    }
+  }
+
+  useEffect(() => {
+    postVisits();
+    fetchVists();
+  }, [])
+
 
   return (
-    <div className="min-h-screen font-sans bg-white overflow-hidden">
+    <div className="min-h-screen bg-[#F8FAFC] flex items-center justify-center p-4 md:p-8 font-sans">
+      {/* Main Card Container */}
+      <div className="bg-white rounded-[2rem] shadow-[0_20px_50px_-12px_rgba(0,0,0,0.1)] w-full max-w-6xl p-8 md:p-12 relative overflow-hidden">
 
-      {/* 1. HERO SECTION */}
-      <section className="relative h-screen">
-        <div className="h-full w-full relative">
-          <img src={images.home_hero} className="absolute inset-0 w-full h-full object-cover z-0" alt="Vrinda Nivas" />
-          <div className="absolute inset-0 bg-black/40 z-10"></div>
-          <div className="absolute inset-0 z-20 flex flex-col items-center justify-center text-center px-4 mt-16">
-            <motion.p initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1, delay: 0.2 }} className="text-goyard-gold uppercase tracking-[0.25em] font-bold text-xs mb-6">Private Homestay in Vrindavan</motion.p>
-            <motion.h1 initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 1.2, delay: 0.4 }} className="text-5xl md:text-7xl text-white font-serif leading-tight max-w-4xl">Book Directly With Us For Best Price Guaranteed</motion.h1>
+        {/* Header Section */}
+        <header className="flex justify-between items-center mb-16 md:mb-24">
+
+          {/* DigiKhoka Logo Replacement */}
+          <div className="flex items-center gap-2 cursor-pointer">
+            <div className="w-8 h-8 p-5 rounded-full bg-black flex items-center justify-center text-white font-bold text-xl">
+              DG
+            </div>
+            <span className="text-3xl font-extrabold text-black tracking-tight">
+              Digi<span className="font-light">Khoka</span>
+            </span>
           </div>
-        </div>
 
-        {/* BOOKING OVERLAY */}
-        <div className="absolute bottom-0 left-0 w-full z-30 transform translate-y-1/2 px-4">
-          <motion.div initial={{ opacity: 0, y: 50 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 1 }} className="max-w-[1100px] mx-auto bg-white shadow-2xl flex flex-col md:flex-row border border-gray-100">
-            <div className="flex-1 p-6 flex flex-col justify-center border-b md:border-b-0 md:border-r border-gray-200">
-              <label className="text-[10px] font-bold uppercase tracking-widest text-gray-400 mb-2">Check-in</label>
-              <input type="date" value={checkIn} onChange={(e) => setCheckIn(e.target.value)} className="w-full focus:outline-none text-goyard-dark font-serif text-lg cursor-pointer bg-transparent" />
-            </div>
-            <div className="flex-1 p-6 flex flex-col justify-center border-b md:border-b-0 md:border-r border-gray-200">
-              <label className="text-[10px] font-bold uppercase tracking-widest text-gray-400 mb-2">Check-out</label>
-              <input type="date" value={checkOut} onChange={(e) => setCheckOut(e.target.value)} className="w-full focus:outline-none text-goyard-dark font-serif text-lg cursor-pointer bg-transparent" />
-            </div>
-            <div className="flex-1 p-6 flex flex-col justify-center border-b md:border-b-0 md:border-r border-gray-200">
-              <label className="text-[10px] font-bold uppercase tracking-widest text-gray-400 mb-2">Guests</label>
-              <select value={guests} onChange={(e) => setGuests(e.target.value)} className="w-full focus:outline-none text-goyard-dark font-serif text-lg cursor-pointer bg-transparent appearance-none">
-                <option value="1">1 Person</option><option value="2">2 Persons</option><option value="3">3 Persons</option><option value="4">4+ Persons</option>
-              </select>
-            </div>
-            <button onClick={handleBooking} className="flex-1 bg-goyard-gold text-white hover:bg-goyard-dark transition-colors duration-400 uppercase tracking-widest text-[11px] font-bold flex items-center justify-center py-6 md:py-0">
-              Check Availability
+          {/* Right Header Links */}
+          <div className="flex items-center sm:gap-8">
+            <a href="#" className="text-gray-500 hover:text-gray-800 text-xs sm:text-sm pl-3 sm:pl-0 font-medium transition-colors">
+              Servers Status 503
+            </a>
+            <button className="text-gray-700 hover:text-black transition-colors" aria-label="Menu">
+              {/* Hamburger Menu Icon */}
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <line x1="3" y1="12" x2="21" y2="12"></line>
+                <line x1="3" y1="6" x2="21" y2="6"></line>
+                <line x1="3" y1="18" x2="21" y2="18"></line>
+              </svg>
             </button>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* 2. SERVICES GRID & ANIMATED IMAGE */}
-      <section className="pt-32 pb-20 bg-white">
-        {/* 5 Column Grid */}
-        <div className="max-w-[1400px] mx-auto px-4 grid grid-cols-2 md:grid-cols-5 gap-y-12">
-
-          <div className="flex flex-col items-center justify-start text-center px-6 md:border-r border-gray-200">
-            <FaDoorOpen className="text-4xl text-goyard-gold mb-6 opacity-80" />
-            <h4 className="font-serif text-[22px] text-goyard-dark mb-3 leading-tight">Early check-in and<br />late check-out</h4>
-            <p className="text-[13px] text-gray-500 font-light">Subject to availability</p>
           </div>
+        </header>
 
-          <div className="flex flex-col items-center justify-start text-center px-6 md:border-r border-gray-200">
-            <FaHotTub className="text-4xl text-goyard-gold mb-6 opacity-80" />
-            <h4 className="font-serif text-[22px] text-goyard-dark mb-3 leading-tight">Peaceful environment<br />and relaxation</h4>
-            <p className="text-[13px] text-gray-500 font-light">Serene Garden Area</p>
-          </div>
+        {/* Main Content Area */}
+        <main className="flex flex-col lg:flex-row items-center gap-12 lg:gap-20">
 
-          <div className="flex flex-col items-center justify-start text-center px-6 md:border-r border-gray-200">
-            <FaSuitcaseRolling className="text-4xl text-goyard-gold mb-6 opacity-80" />
-            <h4 className="font-serif text-[22px] text-goyard-dark mb-3 leading-tight">VIP treatment<br />for all guests</h4>
-            <p className="text-[13px] text-gray-500 font-light">On Arrival</p>
-          </div>
+          {/* Left Content Column */}
+          <div className="flex-1 w-full space-y-8 z-10">
+            <h1 className="text-5xl md:text-6xl font-extrabold text-[#1E3A5F] leading-[1.1] tracking-tight">
+              Website Is Under<br />Maintenance
+            </h1>
 
-          <div className="flex flex-col items-center justify-start text-center px-6 md:border-r border-gray-200">
-            <FaGlassMartiniAlt className="text-4xl text-goyard-gold mb-6 opacity-80" />
-            <h4 className="font-serif text-[22px] text-goyard-dark mb-3 leading-tight">Fresh local drinks<br />and sweets</h4>
-            <p className="text-[13px] text-gray-500 font-light">Welcome offering upon arrival</p>
-          </div>
+            <p className="text-gray-600 text-lg max-w-lg leading-relaxed">
+              We have detected an issue and our technical team is doing its best to solve the problem. Please be patient :)
+            </p>
 
-          <div className="flex flex-col items-center justify-start text-center px-6 col-span-2 md:col-span-1">
-            <FaShuttleVan className="text-4xl text-goyard-gold mb-6 opacity-80" />
-            <h4 className="font-serif text-[22px] text-goyard-dark mb-3 leading-tight">Local e-rickshaw<br />assistance</h4>
-            <p className="text-[13px] text-gray-500 font-light">Easy transport for Darshan</p>
-          </div>
-
-        </div>
-
-        {/* Scroll Animated Image Container */}
-        <div ref={scrollRef} className="w-full max-w-[1500px] mx-auto px-4 mt-24 h-[50vh] md:h-[75vh] flex justify-center items-center overflow-hidden">
-          <motion.div
-            style={{ scale: imageScale }}
-            className="w-full h-full rounded-[30px] md:rounded-[40px] overflow-hidden origin-center shadow-2xl"
-          >
-            <img
-              src={images.img1}
-              alt="Vrinda Nivas Luxury"
-              className="w-full h-full object-cover"
-            />
-          </motion.div>
-        </div>
-      </section>
-
-      {/* 3. OUR ROOMS */}
-      <section className="py-20 bg-goyard-light">
-        <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUpVars} className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-serif text-goyard-dark">Explore Our Rooms</h2>
-          <p className="mt-4 text-gray-500 max-w-2xl mx-auto">We offer exactly 4 beautifully furnished rooms (2 on the ground floor, 2 on the first floor) to ensure an exclusive and quiet stay.</p>
-        </motion.div>
-
-        <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUpVars} className="max-w-[1200px] mx-auto px-4 grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div className="relative group overflow-hidden h-[400px]">
-            <img src={images.img1} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Ground Floor Room 1" />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent flex flex-col justify-end p-8">
-              <span className="text-goyard-gold text-xs font-bold uppercase tracking-widest mb-2">Ground Floor</span>
-              <h3 className="text-white text-3xl font-serif mb-2">Premium Room 1</h3>
-              <p className="text-gray-300 text-sm">Separate Bathroom • Coffee Maker • AC</p>
-            </div>
-          </div>
-          <div className="relative group overflow-hidden h-[400px]">
-            <img src={images.img5} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Ground Floor Room 2" />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent flex flex-col justify-end p-8">
-              <span className="text-goyard-gold text-xs font-bold uppercase tracking-widest mb-2">Ground Floor</span>
-              <h3 className="text-white text-3xl font-serif mb-2">Premium Room 2</h3>
-              <p className="text-gray-300 text-sm">Separate Bathroom • Coffee Maker • AC</p>
-            </div>
-          </div>
-        </motion.div>
-      </section>
-
-      {/* 4. AMENITIES TEXT & LIST */}
-      <motion.section initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUpVars} className="py-24 px-4 max-w-7xl mx-auto flex flex-col md:flex-row gap-16">
-        <div className="md:w-1/2">
-          <h2 className="text-4xl md:text-5xl font-serif text-goyard-dark mb-8 leading-tight">
-            We provide all the basic amenities you need for a comfortable stay
-          </h2>
-          <ul className="space-y-4 font-serif text-xl text-gray-600">
-            <li className="flex items-center"><span className="w-2 h-2 bg-goyard-gold rounded-full mr-4"></span>Air Conditioned Rooms</li>
-            <li className="flex items-center"><span className="w-2 h-2 bg-goyard-gold rounded-full mr-4"></span>Private and peaceful environment</li>
-            <li className="flex items-center"><span className="w-2 h-2 bg-goyard-gold rounded-full mr-4"></span>Clean separate bathrooms</li>
-            <li className="flex items-center"><span className="w-2 h-2 bg-goyard-gold rounded-full mr-4"></span>In-room coffee/tea maker</li>
-            <li className="flex items-center"><span className="w-2 h-2 bg-goyard-gold rounded-full mr-4"></span>Daily housekeeping</li>
-            <li className="flex items-center"><span className="w-2 h-2 bg-goyard-gold rounded-full mr-4"></span>Close to major temples</li>
-          </ul>
-        </div>
-        <div className="md:w-1/2 bg-goyard-light p-12">
-          <h3 className="text-2xl font-serif text-goyard-dark mb-10">Your stay at Vrinda Nivas includes:</h3>
-          <div className="grid grid-cols-2 gap-y-10 gap-x-6">
-            <div className="flex items-center"><FaHome className="text-3xl text-goyard-gold mr-4" /><span className="text-sm font-bold uppercase tracking-widest text-goyard-dark">Homely Vibe</span></div>
-            <div className="flex items-center"><FaWifi className="text-3xl text-goyard-gold mr-4" /><span className="text-sm font-bold uppercase tracking-widest text-goyard-dark">Free Wi-Fi</span></div>
-            <div className="flex items-center"><FaBath className="text-3xl text-goyard-gold mr-4" /><span className="text-sm font-bold uppercase tracking-widest text-goyard-dark">Clean Baths</span></div>
-            <div className="flex items-center"><FaShieldAlt className="text-3xl text-goyard-gold mr-4" /><span className="text-sm font-bold uppercase tracking-widest text-goyard-dark">High Security</span></div>
-            <div className="flex items-center"><FaLeaf className="text-3xl text-goyard-gold mr-4" /><span className="text-sm font-bold uppercase tracking-widest text-goyard-dark">Peaceful</span></div>
-            <div className="flex items-center"><FaCar className="text-3xl text-goyard-gold mr-4" /><span className="text-sm font-bold uppercase tracking-widest text-goyard-dark">Parking space</span></div>
-          </div>
-        </div>
-      </motion.section>
-
-      {/* 5. INTERACTIVE VIDEO SHOWCASE (As requested in image) */}
-      <section className="relative h-screen w-full bg-black text-white font-sans overflow-hidden">
-        <Swiper
-          onSwiper={(swiper) => { swiperRef.current = swiper; }}
-          modules={[EffectFade, Autoplay]}
-          effect="fade"
-          autoplay={{ delay: 8000, disableOnInteraction: false }}
-          onSlideChange={(swiper) => setActiveVideo(swiper.realIndex)}
-          className="w-full h-full absolute inset-0 z-0"
-        >
-          {interactiveVideoSlides.map((slide, idx) => (
-            <SwiperSlide key={idx}>
-              <div className="w-full h-full relative">
-                <video
-                  src={slide.video}
-                  autoPlay
-                  loop
-                  muted={isMuted}
-                  playsInline
-                  className="w-full h-full object-cover"
-                />
-                <div className="absolute inset-0 bg-black/60 pointer-events-none"></div>
+            <div className="flex justify-between">
+              <button className="bg-[#FBBF24] hover:bg-[#F59E0B] text-gray-900 font-semibold text-lg py-3.5 px-10 rounded-lg shadow-sm transition-all duration-200 transform hover:scale-105 active:scale-95">
+                Reload
+              </button>
+              <div className="mr-5 text-gray-100 flex items-center text-xs font-bold">
+                {totalVisits}
               </div>
-            </SwiperSlide>
-          ))}
-        </Swiper>
+            </div>
 
-        {/* OVERLAY UI */}
-        <div className="absolute inset-0 z-10 max-w-[1600px] mx-auto px-6 md:px-12 pointer-events-none flex items-center">
-
-          {/* LEFT NAVIGATION */}
-          <div className="hidden lg:flex flex-col space-y-3 pointer-events-auto w-1/4">
-            {interactiveVideoSlides.map((slide, idx) => (
-              <button
-                key={idx}
-                onClick={() => swiperRef.current?.slideToLoop(idx)}
-                className={`text-left text-sm transition-all duration-500 ${activeVideo === idx ? 'text-white font-bold' : 'text-gray-400 hover:text-gray-200 font-normal'}`}
-              >
-                {slide.title}
-              </button>
-            ))}
+            {/* Social Icons Footer */}
+            <div className="flex gap-6 pt-12 md:pt-20 text-gray-400">
+              {/* Facebook */}
+              <a href="https://www.facebook.com/DigiKhoka" className="hover:text-[#1E3A5F] transition-colors" aria-label="Facebook">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
+                </svg>
+              </a>
+              {/* Twitter */}
+              {/* <a href="#" className="hover:text-[#1E3A5F] transition-colors" aria-label="Twitter">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"></path>
+                </svg>
+              </a> */}
+              {/* Instagram */}
+              <a href="https://www.instagram.com/digikhoka?stkn=MWpqNXV5bnA0dGwweA==" className="hover:text-[#1E3A5F] transition-colors" aria-label="Instagram">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                  <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                  <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                </svg>
+              </a>
+            </div>
           </div>
 
-          {/* CENTER CONTENT */}
-          <div className="w-full lg:w-2/4 pointer-events-auto flex flex-col justify-center">
-            <p className="text-[10px] uppercase tracking-[0.2em] font-bold mb-6 text-gray-300">Book Your Stay</p>
-            <motion.h2
-              key={activeVideo}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8 }}
-              className="text-5xl md:text-6xl text-white lg:text-7xl font-serif mb-8 leading-[1.1]"
-            >
-              {interactiveVideoSlides[activeVideo].heading}
-            </motion.h2>
-            <motion.p
-              key={`desc-${activeVideo}`}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.8, delay: 0.2 }}
-              className="text-gray-300 text-sm md:text-base mb-10 max-w-md leading-relaxed"
-            >
-              {interactiveVideoSlides[activeVideo].desc}
-            </motion.p>
-            <button className="bg-white text-black px-8 py-4 text-[10px] uppercase tracking-[0.2em] font-bold hover:bg-goyard-gold hover:text-white transition-colors self-start pointer-events-auto">
-              Discover More
-            </button>
+          {/* Right Illustration Column */}
+          <div className="flex-1 w-full flex justify-center lg:justify-end relative">
+            {/* 
+              Note: Replace the 'src' below with the actual illustration asset from your project. 
+              I have added a subtle background shape to mimic the original design's flow.
+            */}
+            <div className="relative w-full max-w-md">
+              <img
+                src={images.img1}
+                alt="Website Maintenance Illustration"
+                className="w-full h-auto object-contain drop-shadow-xl z-10 relative"
+              />
+              {/* Decorative wavy lines (simulating the background doodles) */}
+              <div className="absolute -bottom-10 -left-10 w-64 h-64 border-2 border-dashed border-gray-200 rounded-full opacity-50 pointer-events-none"></div>
+            </div>
           </div>
 
-          {/* RIGHT PAGINATION DOTS */}
-          <div className="hidden lg:flex flex-col space-y-4 items-center justify-center pointer-events-auto absolute right-12">
-            {interactiveVideoSlides.map((_, idx) => (
-              <button
-                key={idx}
-                onClick={() => swiperRef.current?.slideToLoop(idx)}
-                className="flex items-center justify-center w-6 h-6 rounded-full group outline-none"
-              >
-                <span className={`flex items-center justify-center rounded-full transition-all duration-300 ${activeVideo === idx ? 'w-5 h-5 border border-white' : 'w-1.5 h-1.5 bg-gray-500 group-hover:bg-gray-300'}`}>
-                  {activeVideo === idx && <span className="w-1.5 h-1.5 bg-white rounded-full"></span>}
-                </span>
-              </button>
-            ))}
-          </div>
-        </div>
-
-        {/* BOTTOM BAR */}
-        <div className="absolute bottom-12 left-6 md:left-12 right-6 md:right-12 z-20 flex justify-between items-center pointer-events-auto">
-          <button
-            onClick={() => setIsMuted(!isMuted)}
-            className="flex items-center text-white hover:text-goyard-gold transition-colors group outline-none"
-          >
-            {isMuted ? <FaVolumeMute className="mr-3 text-xl" /> : <FaVolumeUp className="mr-3 text-xl" />}
-            <span className="text-[10px] uppercase font-bold tracking-[0.15em]">{isMuted ? 'Muted' : 'Active sound'}</span>
-          </button>
-          <button
-            onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-            className="w-12 h-12 rounded-full bg-white text-black flex items-center justify-center hover:bg-goyard-gold hover:text-white transition-colors outline-none"
-          >
-            <FaArrowUp />
-          </button>
-        </div>
-      </section>
-
-      {/* 6. STAY CONNECTED (Infinite Marquee) */}
-      <section className="pt-24 pb-0 overflow-hidden bg-white border-t border-gray-100">
-        <h2 className="text-4xl md:text-5xl font-serif text-goyard-dark mb-16 text-center">Stay Connected</h2>
-
-        {/* Continuous slide right to left */}
-        <div className="animate-marquee hover:pause flex w-[200%] h-[300px]">
-          {/* First set of images */}
-          <div className="flex w-1/2">
-            <img src={images.home_hero} className="w-1/5 h-full object-cover border-r border-white" alt="Gallery 3" />
-            <img src={images.img7} className="w-1/5 h-full object-cover border-r border-white" alt="Gallery 1" />
-            <img src={images.img6} className="w-1/5 h-full object-cover border-r border-white" alt="Gallery 2" />
-            <img src={images.img5} className="w-1/5 h-full object-cover border-r border-white" alt="Gallery 4" />
-            <img src={images.img4} className="w-1/5 h-full object-cover border-r border-white" alt="Gallery 5" />
-          </div>
-          {/* Second cloned set of images for seamless loop */}
-          <div className="flex w-1/2">
-            <img src={images.img1} className="w-1/5 h-full object-cover border-r border-white" alt="Gallery 1" />
-            <img src={images.img4} className="w-1/5 h-full object-cover border-r border-white" alt="Gallery 2" />
-            <img src={images.img5} className="w-1/5 h-full object-cover border-r border-white" alt="Gallery 3" />
-            {/* <img src={images.img6} className="w-1/5 h-full object-cover border-r border-white" alt="Gallery 4" />
-            <img src={images.img7} className="w-1/5 h-full object-cover border-r border-white" alt="Gallery 5" /> */}
-          </div>
-        </div>
-      </section>
-
+        </main>
+      </div>
     </div>
   );
-};
-
-export default Home;
+}
