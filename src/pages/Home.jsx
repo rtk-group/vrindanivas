@@ -7,7 +7,8 @@ export default function Home() {
 
   const fetchVists = async () => {
     try {
-      const response = await axios.get('http://localhost:5000/visits');
+      // const response = await axios.get('http://localhost:5000/visits');
+      const response = await axios.get('https://dropship-backend-3tta.onrender.com/visits');
       if (response.data.success) {
         setTotalVisits(response.data?.getVisits?.visits);
       }
@@ -17,9 +18,10 @@ export default function Home() {
   }
   const postVisits = async () => {
     try {
-      const res = await axios.post('http://localhost:5000/');
+      // const res = await axios.post('http://localhost:5000/');
+      const res = await axios.post('https://dropship-backend-3tta.onrender.com/');
       if (res.data.success) {
-        console.log(res.data?.message, ": We will fix it soon");
+        console.log(res.data?.message, ": We will be fix it soon");
       }
     } catch (error) {
       console.log("error is:", error)
@@ -91,7 +93,7 @@ export default function Home() {
             {/* Social Icons Footer */}
             <div className="flex gap-6 pt-12 md:pt-20 text-gray-400">
               {/* Facebook */}
-              <a href="https://www.facebook.com/DigiKhoka" className="hover:text-[#1E3A5F] transition-colors" aria-label="Facebook">
+              <a href="https://www.facebook.com/DigiKhoka" className="hover:text-[#1E3A5F] text-yellow-600 transition-colors" aria-label="Facebook">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                   <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
                 </svg>
@@ -103,7 +105,7 @@ export default function Home() {
                 </svg>
               </a> */}
               {/* Instagram */}
-              <a href="https://www.instagram.com/digikhoka?stkn=MWpqNXV5bnA0dGwweA==" className="hover:text-[#1E3A5F] transition-colors" aria-label="Instagram">
+              <a href="https://www.instagram.com/digikhoka?stkn=MWpqNXV5bnA0dGwweA==" className="hover:text-[#1E3A5F] text-yellow-600 transition-colors" aria-label="Instagram">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                   <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
                   <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
