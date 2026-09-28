@@ -43,13 +43,14 @@ export default function Home() {
         <header className="flex justify-between items-center mb-16 md:mb-24">
 
           {/* DigiKhoka Logo Replacement */}
-          <div className="flex items-center gap-2 cursor-pointer">
+          <div className="flex items-center gap-2 cursor-pointer ">
             <div className="w-8 h-8 p-5 rounded-full bg-black flex items-center justify-center text-white font-bold text-xl">
               DG
             </div>
             <span className="text-3xl font-extrabold text-black tracking-tight">
               Digi<span className="font-light">Khoka</span>
             </span>
+            {/* <img src={images.logo} alt="digiKhoka_logo" className='w-[200px]'/> */}
           </div>
 
           {/* Right Header Links */}
